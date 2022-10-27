@@ -1,7 +1,4 @@
-interface Prefecture {
-  id: number;
-  name: string;
-}
+import Prefecture from "./PrefectureInterface";
 
 const compareWith = (o1: Prefecture, o2: Prefecture) => {
   if (!o1 || !o2) {
