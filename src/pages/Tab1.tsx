@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   IonButton,
+  IonButtons,
   IonContent,
   IonHeader,
   IonIcon,
@@ -8,41 +9,28 @@ import {
   IonItem,
   IonLabel,
   IonList,
+  IonModal,
   IonPage,
   IonText,
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
-import { addOutline } from "ionicons/icons";
-import ExploreContainer from "../components/ExploreContainer";
+import { addOutline, swapVerticalOutline } from "ionicons/icons";
 import "./Tab1.css";
 
 const Tab1: React.FC = () => {
   const [departure, setDeparture] = useState("");
-  const [via, setVia] = useState("");
   const [arrival, setArrival] = useState("");
 
-  const [viaNum, setViaNum] = useState(0);
-  const [isInputVia, setIsInputVia] = useState(false);
+  const [via, setVia] = useState("");
   const [viaList, setViaList] = useState<string[]>([]);
 
-  useEffect(() => {
-    if (!via) {
-      setIsInputVia(false);
-    } else {
-      setIsInputVia(true);
-    }
-  }, [via]);
+  const [isDepartureModalOpen, setIsDepartureModalOpen] = useState(false);
+  const [isViaModalOpen, setIsViaModalOpen] = useState(false);
+  const [isArrivalModalOpen, setIsArrivalModalOpen] = useState(false);
 
   const addVia = () => {
     setViaList([...viaList, via]);
-  };
-
-  const handleClick = () => {
-    setIsInputVia(false);
-    addVia();
-    setVia("");
-    setViaNum(viaNum + 1);
   };
 
   return (
@@ -53,7 +41,7 @@ const Tab1: React.FC = () => {
         </IonToolbar>
       </IonHeader>
 
-      <IonContent fullscreen>
+      <IonContent fullscreen className="ion-padding">
         <IonHeader collapse="condense">
           <IonToolbar>
             <IonTitle size="large">経路探索</IonTitle>
@@ -62,68 +50,129 @@ const Tab1: React.FC = () => {
         {/* <ExploreContainer name="Tab 1 page" /> */}
 
         <IonList>
-          {/* <IonListHeader>
-            <IonLabel>経路探索</IonLabel>
-          </IonListHeader> */}
-          <IonItem counter={true}>
-            <IonLabel position="floating">出発地</IonLabel>
-            <IonInput
-              placeholder="出発地を入力"
-              value={departure}
-              onIonChange={(e) => {
-                setDeparture(e.detail.value!);
-              }}
-            ></IonInput>
+          <IonItem onClick={() => setIsDepartureModalOpen(true)}>
+            <IonLabel>
+              <IonText>出発地:</IonText>
+            </IonLabel>
+            {departure === "" ? (
+              <IonText>未入力</IonText>
+            ) : (
+              <IonText>{departure}</IonText>
+            )}
           </IonItem>
+
           {viaList.map((via, idx) => (
             <IonItem key={idx}>
-              <IonLabel>経由地{idx + 1}</IonLabel>
+              <IonLabel>
+                <IonText>経由地{idx + 1}:</IonText>
+              </IonLabel>
               <IonText>{via}</IonText>
             </IonItem>
           ))}
 
           <IonItem>
-            <IonLabel position="floating">経由地{viaNum + 1}</IonLabel>
-            <IonInput
-              placeholder="経由地を入力"
-              value={via}
-              onIonChange={(e) => {
-                setVia(e.detail.value!);
-              }}
-            ></IonInput>
+            <IonButtons slot="start">
+              <IonButton fill="outline">
+                <IonIcon icon={swapVerticalOutline}></IonIcon>
+                <IonText>逆順にする</IonText>
+              </IonButton>
+            </IonButtons>
+            <IonButtons slot="end">
+              <IonButton fill="outline" onClick={() => setIsViaModalOpen(true)}>
+                <IonIcon icon={addOutline}></IonIcon>
+                <IonText>経由地を追加</IonText>
+              </IonButton>
+            </IonButtons>
           </IonItem>
 
-          <IonItem counter={true}>
-            {isInputVia ? (
-              <IonButton
-                onClick={() => {
-                  handleClick();
-                }}
-              >
-                <IonIcon icon={addOutline} />
-                経由地を追加
-              </IonButton>
+          <IonItem onClick={() => setIsArrivalModalOpen(true)}>
+            <IonLabel>
+              <IonText>到着地:</IonText>
+            </IonLabel>
+            {arrival === "" ? (
+              <IonText>未入力</IonText>
             ) : (
-              <IonButton disabled={true}>
-                <IonIcon icon={addOutline} />
-                経由地を追加
-              </IonButton>
+              <IonText>{arrival}</IonText>
             )}
           </IonItem>
-          <IonItem counter={true}>
-            <IonLabel position="floating">到着地</IonLabel>
-            <IonInput
-              placeholder="到着地を入力"
-              value={arrival}
-              onIonChange={(e) => {
-                setArrival(e.detail.value!);
-              }}
-            ></IonInput>
-          </IonItem>
         </IonList>
-        <IonItem>
-          <IonButton>探索する</IonButton>
-        </IonItem>
+        <IonButton expand="block">
+          <IonText>探索する</IonText>
+        </IonButton>
+
+        <IonModal isOpen={isDepartureModalOpen}>
+          <IonHeader>
+            <IonToolbar>
+              <IonTitle>出発地</IonTitle>
+              <IonButtons slot="end">
+                <IonButton onClick={() => setIsDepartureModalOpen(false)}>
+                  Close
+                </IonButton>
+              </IonButtons>
+            </IonToolbar>
+          </IonHeader>
+          <IonContent className="ion-padding">
+            <IonItem>
+              <IonLabel position="stacked">出発地を入力</IonLabel>
+              <IonInput
+                onIonChange={(e) => {
+                  setDeparture(e.detail.value!);
+                }}
+              />
+            </IonItem>
+          </IonContent>
+        </IonModal>
+
+        <IonModal isOpen={isViaModalOpen}>
+          <IonHeader>
+            <IonToolbar>
+              <IonTitle>経由地</IonTitle>
+              <IonButtons slot="end">
+                <IonButton
+                  onClick={() => {
+                    setIsViaModalOpen(false);
+                    addVia();
+                  }}
+                >
+                  Close
+                </IonButton>
+              </IonButtons>
+            </IonToolbar>
+          </IonHeader>
+          <IonContent className="ion-padding">
+            <IonItem>
+              <IonLabel position="stacked">経由地を入力</IonLabel>
+              <IonInput
+                onIonChange={(e) => {
+                  setVia(e.detail.value!);
+                }}
+              />
+            </IonItem>
+          </IonContent>
+        </IonModal>
+
+        <IonModal isOpen={isArrivalModalOpen}>
+          <IonHeader>
+            <IonToolbar>
+              <IonTitle>到着地</IonTitle>
+              <IonButtons slot="end">
+                <IonButton onClick={() => setIsArrivalModalOpen(false)}>
+                  Close
+                </IonButton>
+              </IonButtons>
+            </IonToolbar>
+          </IonHeader>
+          <IonContent className="ion-padding">
+            <IonItem>
+              <IonLabel position="stacked">到着地を入力</IonLabel>
+              <IonInput
+                onIonChange={(e) => {
+                  setArrival(e.detail.value!);
+                }}
+              />
+            </IonItem>
+          </IonContent>
+        </IonModal>
       </IonContent>
     </IonPage>
   );
