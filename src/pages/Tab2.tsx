@@ -15,7 +15,7 @@ import {
 } from "@ionic/react";
 import "./Tab2.css";
 
-import FetchStation from "../components/FetchStation";
+import FetchStationInfo from "../components/FetchStationInfo";
 import Prefecture from "../interfaces/PrefectureInterface";
 import { prefectures, isSamePrefecture } from "../components/Prefecture";
 
@@ -116,7 +116,7 @@ const Tab2: React.FC = () => {
         <IonButton
           expand="block"
           onClick={async () => {
-            const data = await FetchStation(
+            const data = await FetchStationInfo(
               name,
               oldName,
               corporationName,

@@ -4,7 +4,7 @@ import StationSearch from "../interfaces/StationSearchInterface";
 import { setStationSearchParams } from "./setSearchParams";
 const API_KEY = process.env.REACT_APP_API_KEY;
 
-const FetchStation = async (
+const FetchStationInfo = async (
   name: string | null = null,
   oldName: string | null = null,
   corporationName: string | null = null,
@@ -38,4 +38,4 @@ const FetchStation = async (
   return data;
 };
 
-export default FetchStation;
+export default FetchStationInfo;
