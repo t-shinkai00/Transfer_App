@@ -90,10 +90,13 @@ const Tab2: React.FC = () => {
               placeholder="選択"
               compareWith={isSamePrefecture}
               onIonChange={(e) => {
-                e.detail.value.map((json: Prefecture) => {
-                  console.log(json.id);
-                });
-                setPrefectureCode("1:2");
+                const prefectures = e.detail.value;
+                const prefectureCodes = prefectures.map(
+                  (prefecture: Prefecture) => {
+                    return prefecture.id;
+                  }
+                );
+                setPrefectureCode(prefectureCodes.join(":"));
               }}
               multiple={true}
             >
