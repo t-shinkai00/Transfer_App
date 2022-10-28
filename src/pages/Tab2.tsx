@@ -17,7 +17,7 @@ import {
 import "./Tab2.css";
 
 import FetchStation from "../components/FetchStation";
-import Prefecture from "../components/PrefectureInterface";
+import Prefecture from "../../interfaces/PrefectureInterface";
 import { prefectures, compareWith } from "../components/Prefecture";
 
 const Tab2: React.FC = () => {

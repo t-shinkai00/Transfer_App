@@ -1,4 +1,4 @@
-import Prefecture from "./PrefectureInterface";
+import Prefecture from "../../interfaces/PrefectureInterface";
 
 const compareWith = (o1: Prefecture, o2: Prefecture) => {
   if (!o1 || !o2) {
