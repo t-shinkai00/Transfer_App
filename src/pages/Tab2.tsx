@@ -119,18 +119,18 @@ const Tab2: React.FC = () => {
         </IonList>
         <IonButton
           expand="block"
-          onClick={() => {
-            console.log(
-              FetchStation(
-                name,
-                oldName,
-                corporationName,
-                railName,
-                type,
-                prefectureCode,
-                addGateGroup
+          onClick={async () => {
+            const data = await FetchStation(
+              name,
+              oldName,
+              corporationName,
+              railName,
+              type,
+              prefectureCode,
+              addGateGroup
               )
             );
+            console.log(data);
           }}
         >
           検索する
