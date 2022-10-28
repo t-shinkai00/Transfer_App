@@ -8,7 +8,6 @@ import {
   IonPage,
   IonTitle,
   IonToolbar,
-  IonText,
   IonList,
   IonItem,
   IonSelect,
@@ -17,8 +16,8 @@ import {
 import "./Tab2.css";
 
 import FetchStation from "../components/FetchStation";
-import Prefecture from "../../interfaces/PrefectureInterface";
-import { prefectures, compareWith } from "../components/Prefecture";
+import Prefecture from "../interfaces/PrefectureInterface";
+import { prefectures, isSamePrefecture } from "../components/Prefecture";
 
 const Tab2: React.FC = () => {
   const [name, setName] = useState("");
@@ -27,7 +26,7 @@ const Tab2: React.FC = () => {
   const [railName, setRailName] = useState("");
   const [type, setType] = useState("");
   const [prefectureCode, setPrefectureCode] = useState("");
-  const [addGateGroup, setAddGateGroup] = useState(false);
+  const [addGateGroup, setAddGateGroup] = useState(true);
 
   return (
     <IonPage>
@@ -86,18 +85,15 @@ const Tab2: React.FC = () => {
             />
           </IonItem>
           <IonItem>
+            <IonLabel position="fixed">都道府県</IonLabel>
             <IonSelect
-              placeholder="都道府県"
-              compareWith={compareWith}
+              placeholder="選択"
+              compareWith={isSamePrefecture}
               onIonChange={(e) => {
                 e.detail.value.map((json: Prefecture) => {
                   console.log(json.id);
-                  setPrefectureCode("1:2");
                 });
-                // const str = JSON.stringify(e.detail.value);
-                // const newValue = JSON.parse(str);
-                // newValue.map((value: JSON) => console.log(value));
-                // console.log(str, newValue);
+                setPrefectureCode("1:2");
               }}
               multiple={true}
             >
@@ -128,7 +124,6 @@ const Tab2: React.FC = () => {
               type,
               prefectureCode,
               addGateGroup
-              )
             );
             console.log(data);
           }}

@@ -1,6 +1,6 @@
-import Prefecture from "../../interfaces/PrefectureInterface";
+import Prefecture from "../interfaces/PrefectureInterface";
 
-const compareWith = (o1: Prefecture, o2: Prefecture) => {
+const isSamePrefecture = (o1: Prefecture, o2: Prefecture) => {
   if (!o1 || !o2) {
     return o1 === o2;
   }
@@ -201,4 +201,4 @@ const prefectures: Prefecture[] = [
   },
 ];
 
-export { prefectures, compareWith };
+export { prefectures, isSamePrefecture };
