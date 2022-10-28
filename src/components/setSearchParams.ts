@@ -1,4 +1,4 @@
-import StationSearch from "../../interfaces/StationSearchInterface";
+import StationSearch from "../interfaces/StationSearchInterface";
 
 export const setStationSearchParams = (
   key: string | undefined,
