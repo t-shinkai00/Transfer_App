@@ -17,7 +17,9 @@ import "./Tab2.css";
 
 import FetchStationInfo from "../components/FetchStationInfo";
 import Prefecture from "../interfaces/PrefectureInterface";
+import Type from "../interfaces/TypeInterface";
 import { prefectures, isSamePrefecture } from "../components/Prefecture";
+import { types, isSameType } from "../components/Type";
 
 const Tab2: React.FC = () => {
   const [name, setName] = useState("");
@@ -78,14 +80,27 @@ const Tab2: React.FC = () => {
           </IonItem>
           <IonItem>
             <IonLabel position="floating">交通種別</IonLabel>
-            <IonInput
+            <IonSelect
+              placeholder="選択"
+              compareWith={isSameType}
               onIonChange={(e) => {
-                setType(e.detail.value!);
+                const types = e.detail.value;
+                const typeList = types.map((type: Type) => {
+                  return type.value;
+                });
+                setType(typeList.join(":"));
               }}
-            />
+              multiple={true}
+            >
+              {types.map((type) => (
+                <IonSelectOption key={type.name} value={type}>
+                  {type.name}
+                </IonSelectOption>
+              ))}
+            </IonSelect>
           </IonItem>
           <IonItem>
-            <IonLabel position="fixed">都道府県</IonLabel>
+            <IonLabel position="floating">都道府県</IonLabel>
             <IonSelect
               placeholder="選択"
               compareWith={isSamePrefecture}
