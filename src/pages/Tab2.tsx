@@ -19,8 +19,8 @@ import "./Tab2.css";
 import FetchStationInfo from "../components/FetchStationInfo";
 import Prefecture from "../interfaces/PrefectureInterface";
 import Type from "../interfaces/TypeInterface";
-import { prefectures, isSamePrefecture } from "../components/Prefecture";
-import { types, isSameType } from "../components/Type";
+import { prefectures, isSamePrefecture } from "../data/Prefecture";
+import { types, isSameType } from "../data/Type";
 
 const Tab2: React.FC = () => {
   const [name, setName] = useState("");
