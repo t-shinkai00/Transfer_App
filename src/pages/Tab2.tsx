@@ -12,6 +12,7 @@ import {
   IonItem,
   IonSelect,
   IonSelectOption,
+  IonToggle,
 } from "@ionic/react";
 import "./Tab2.css";
 
@@ -123,12 +124,14 @@ const Tab2: React.FC = () => {
             </IonSelect>
           </IonItem>
           <IonItem>
-            <IonLabel position="floating">出口グループ</IonLabel>
-            <IonInput
+            <IonLabel>出口グループ</IonLabel>
+            <IonToggle
+              slot="end"
+              checked={addGateGroup}
               onIonChange={(e) => {
-                setAddGateGroup(true);
+                setAddGateGroup(e.detail.checked);
               }}
-            />
+            ></IonToggle>
           </IonItem>
         </IonList>
         <IonButton
