@@ -34,7 +34,7 @@ const FetchStationInfo = async (
     .catch((error) => {
       console.error(error.response);
     });
-
+  // console.log(params);
   return data;
 };
 
