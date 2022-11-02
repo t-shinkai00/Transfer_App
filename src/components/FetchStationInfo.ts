@@ -11,7 +11,7 @@ const FetchStationInfo = async (
   railName: string | null = null,
   type: string | null = null,
   prefectureCode: string | null = null,
-  addGateGroup: boolean = false
+  addGateGroup: boolean = true
 ): Promise<string> => {
   const params: StationSearch = setStationSearchParams(
     API_KEY,
