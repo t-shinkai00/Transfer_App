@@ -17,6 +17,7 @@ import {
 import "./Tab2.css";
 
 import FetchStationInfo from "../components/FetchStationInfo";
+import isSearchable from "../components/isSearchable";
 import Prefecture from "../interfaces/PrefectureInterface";
 import Type from "../interfaces/TypeInterface";
 import { prefectures, isSamePrefecture } from "../data/Prefecture";
@@ -136,6 +137,16 @@ const Tab2: React.FC = () => {
         </IonList>
         <IonButton
           expand="block"
+          disabled={
+            !isSearchable(
+              name,
+              oldName,
+              corporationName,
+              railName,
+              type,
+              prefectureCode
+            )
+          }
           onClick={async () => {
             const data = await FetchStationInfo(
               name,
