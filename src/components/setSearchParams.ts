@@ -8,7 +8,7 @@ export const setStationSearchParams = (
   railName: string | null = null,
   type: string | null = null,
   prefectureCode: string | null = null,
-  addGateGroup: boolean = false
+  addGateGroup: boolean = true
 ) => {
   const params: StationSearch = {
     key: key,
@@ -27,7 +27,7 @@ export const setStationSearchParams = (
   if (railName === "") delete params.railName;
   if (type === "") delete params.type;
   if (prefectureCode === "") delete params.prefectureCode;
-  if (addGateGroup === false) delete params.addGateGroup;
+  if (addGateGroup === true) delete params.addGateGroup;
 
   return params;
 };
